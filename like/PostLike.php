@@ -24,20 +24,22 @@ final class PostLike
 
     public function __construct($settings = null)
     {
-        $this->settings = $settings ?? 'simple';
+        $this->settings = $settings;
 
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
+        if( isset($this->settings['global']) && true === $this->settings['global']){
+            add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
 
-        add_shortcode('like', [$this, 'render_shortcode']);
+            add_shortcode('like', [$this, 'render_shortcode']);
 
-        add_action('wp_ajax_nopriv_process_simple_like', [$this, 'process_simple_like'] );
-        add_action('wp_ajax_process_simple_like', [$this, 'process_simple_like'] );
+            add_action('wp_ajax_nopriv_process_simple_like', [$this, 'process_simple_like'] );
+            add_action('wp_ajax_process_simple_like', [$this, 'process_simple_like'] );
 
-        add_action('show_user_profile', [$this, 'show_user_likes']);
-        add_action('edit_user_profile', [$this, 'show_user_likes']);
+            add_action('show_user_profile', [$this, 'show_user_likes']);
+            add_action('edit_user_profile', [$this, 'show_user_likes']);
 
-        if($this->settings === 'stars'){
-            $this->stars_settings();
+            if($this->settings === 'stars'){
+                $this->stars_settings();
+            }
         }
     }
 
@@ -235,7 +237,7 @@ final class PostLike
      */
     public function get_simple_likes_button($post_id, $is_comment = null): string
     {
-        $is_comment = (null == $is_comment) ? 0 : 1;
+        $is_comment = (null === $is_comment) ? 0 : 1;
         $output     = '';
         $nonce      = wp_create_nonce( 'simple-likes-nonce' ); // Security
         if ($is_comment == 1) {
@@ -500,4 +502,4 @@ final class PostLike
     
 }
 
-return new PostLike();
+return new PostLike(['global' => true]);
