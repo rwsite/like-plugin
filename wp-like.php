@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Wordpress Like Plugin
+ * Plugin Name: Wordpress Likes
  * Plugin URL: https://dataduck.com
- * Description: Wordpress simple like system. Require font awesome. How to use. Add shortcode [like] in your theme, before post output.
+ * Description: Wordpress simple likes plugin. Require font awesome. How to use. Add shortcode [like] in your theme, before post output.
  * Version: 1.0.0
  * Text Domain: like
  * Domain Path: /languages
