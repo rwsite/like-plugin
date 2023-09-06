@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Wordpress Likes
- * Plugin URL: https://dataduck.com
+ * Plugin URL: https://rwsite.ru
  * Description: Wordpress simple likes plugin. Require font awesome. How to use. Add shortcode [like] in your theme, before post output.
  * Version: 1.0.0
  * Text Domain: like
@@ -11,49 +11,55 @@
  * Requires at least: 4.6
  * Tested up to: 5.3.1
  * Requires PHP: 7.0+
- *
+ * How to use:
  */
+
+namespace theme;
 
 define( 'LIKE_URL', plugin_dir_url( __FILE__));
 
 final class PostLike
 {
+    public static $inst = 0;
     public $settings;
-
     private $text;
 
     public function __construct($settings = null)
     {
-        $this->settings = $settings;
-
-        if( isset($this->settings['global']) && true === $this->settings['global']){
-            add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
-
-            add_shortcode('like', [$this, 'render_shortcode']);
-
-            add_action('wp_ajax_nopriv_process_simple_like', [$this, 'process_simple_like'] );
-            add_action('wp_ajax_process_simple_like', [$this, 'process_simple_like'] );
-
-            add_action('show_user_profile', [$this, 'show_user_likes']);
-            add_action('edit_user_profile', [$this, 'show_user_likes']);
-
-            if($this->settings === 'stars'){
-                $this->stars_settings();
-            }
-        }
+        self::$inst++;
+        $this->settings = $settings; // stars
+        $this->add_actions();
     }
 
-    
+    public function add_actions(){
+
+        if(self::$inst !== 1) {
+            return;
+        }
+
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
+        add_shortcode('like', [$this, 'get_post_likes']);
+
+        add_action('wp_ajax_nopriv_process_simple_like', [$this, 'process_simple_like'] );
+        add_action('wp_ajax_process_simple_like', [$this, 'process_simple_like'] );
+
+        add_action('show_user_profile', [$this, 'show_user_likes']);
+        add_action('edit_user_profile', [$this, 'show_user_likes']);
+
+        if($this->settings === 'stars'){
+            $this->stars_settings();
+        }
+    }
 
     public function enqueue_scripts()
     {
         wp_enqueue_style( 'likes', LIKE_URL . '/css/simple-likes-public.css' );
-        wp_enqueue_script( 'likes-public-js', LIKE_URL . '/js/simple-likes-public.js', ['jquery'], '0.5',
-            false );
-        wp_localize_script( 'simple-likes-public-js', 'simpleLikes', [
+        wp_enqueue_script( 'likes', LIKE_URL . '/js/simple-likes-public.js', ['jquery'], '0.5',false );
+
+        wp_localize_script( 'likes', 'simpleLikes', [
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
-            'like'    => __( 'Like', 'love' ),
-            'unlike'  => __( 'Unlike', 'love' )
+            'like'    => __( 'Like', 'like' ),
+            'unlike'  => __( 'Unlike', 'like' )
         ] );
         
         if($this->settings === 'stars'){
@@ -64,24 +70,25 @@ final class PostLike
 
     /**
      * Processes like/unlike
-     * @since    0.5
      */
     public function process_simple_like()
     {
         // Security
         $nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( $_REQUEST['nonce'] ) : 0;
         if ( ! wp_verify_nonce( $nonce, 'simple-likes-nonce' )) {
-            exit( __( 'Not permitted', 'love' ) );
+            exit( __( 'Not permitted', 'like' ) );
         }
         // Test if javascript is disabled
-        $disabled = (isset( $_REQUEST['disabled'] ) && $_REQUEST['disabled'] == true) ? true : false;
+        $disabled = isset( $_REQUEST['disabled'] ) && $_REQUEST['disabled'] == true;
         // Test if this is a comment
         $is_comment = (isset( $_REQUEST['is_comment'] ) && $_REQUEST['is_comment'] == 1) ? 1 : 0;
         // Base variables
         $post_id    = (isset( $_REQUEST['post_id'] ) && is_numeric( $_REQUEST['post_id'] )) ? $_REQUEST['post_id'] : '';
+
         $result     = [];
         $post_users = null;
         $like_count = 0;
+
         // Get plugin options
         if ($post_id !== '') {
             $count = ($is_comment == 1) ? get_comment_meta( $post_id, '_comment_like_count',
@@ -230,7 +237,7 @@ final class PostLike
     /**
      * Output the like button
      *
-     * @param $post_id
+     * @param int $post_id
      * @param null $is_comment
      *
      * @return string
@@ -238,7 +245,6 @@ final class PostLike
     public function get_simple_likes_button($post_id, $is_comment = null): string
     {
         $is_comment = (null === $is_comment) ? 0 : 1;
-        $output     = '';
         $nonce      = wp_create_nonce( 'simple-likes-nonce' ); // Security
         if ($is_comment == 1) {
             $post_id_class = esc_attr( ' sl-comment-button-' . $post_id );
@@ -259,26 +265,29 @@ final class PostLike
         // Liked/Unliked Variables
         if ($this->already_liked( $post_id, $is_comment )) {
             $class = esc_attr( ' liked' );
-            $title = __( 'Unlike', 'love' );
+            $title = __( 'Unlike', 'like' );
             $icon  = $icon_full;
         } else {
             $class = '';
-            $title = __( 'Like', 'love' );
+            $title = __( 'Like', 'like' );
             $icon  = $icon_empty;
         }
-        $output = '<span class="sl-wrapper"><a href="' . admin_url( 'admin-ajax.php?action=process_simple_like' . '&post_id=' . $post_id . '&nonce=' . $nonce . '&is_comment=' . $is_comment . '&disabled=true' ) . '" class="sl-button' . $post_id_class . $class . $comment_class . '" data-nonce="' . $nonce . '" data-post-id="' . $post_id . '" data-iscomment="' . $is_comment . '" title="' . $title . '">' . $icon . $count . '</a>' . $loader . '</span>';
+
+        $output = '<span class="sl-wrapper"><a href="' . admin_url( 'admin-ajax.php?action=process_simple_like' . '&post_id=' . $post_id . '&nonce=' . $nonce . '&is_comment=' . $is_comment . '&disabled=true' ) .
+        '" class="sl-button' . $post_id_class . $class . $comment_class . '" data-nonce="' . $nonce . '" data-post-id="' . $post_id . '" data-iscomment="' . $is_comment . '" title="' . $title . '">'
+        . $icon . $count . '</a> ' . $loader . '</span>';
 
         return $output;
-    } // get_simple_likes_button()
+    }
 
 
     /**
      * Processes shortcode to manually add the button to posts
      * @return string
      */
-    public function render_shortcode()
+    public function get_post_likes($post = null)
     {
-        return $this->get_simple_likes_button( get_the_ID(), 0 );
+        return $this->get_simple_likes_button( $post ?? get_the_ID(), 0 );
     }
 
     /**
@@ -325,43 +334,38 @@ final class PostLike
         }
 
         return $post_users;
-    } // post_ip_likes()
+    }
 
     /**
      * Utility to retrieve IP address
-     * @since    0.5
      */
     public function sl_get_ip()
     {
-        if (isset( $_SERVER['HTTP_CLIENT_IP'] ) && ! empty( $_SERVER['HTTP_CLIENT_IP'] )) {
+        if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] )) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) && ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] )) {
+        } elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] )) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {
             $ip = (isset( $_SERVER['REMOTE_ADDR'] )) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
         }
         $ip = filter_var( $ip, FILTER_VALIDATE_IP );
-        $ip = ($ip === false) ? '0.0.0.0' : $ip;
-
-        return $ip;
+        return ($ip === false) ? '0.0.0.0' : $ip;
     }
 
     /**
      * Utility returns the button icon for "like" action
-     * @since    0.5
      */
     public function get_liked_icon()
     {
-        return '<i class="fa fa-heart"></i> ';
+        return apply_filters('sl_icon_liked', '<i class="fa fa-heart"></i> ');
     }
 
     /**
      * Utility returns the button icon for "unlike" action
-     * @since    0.5
      */
     public function get_unliked_icon()
     {
-        return '<i class="fa fa-heart-o"></i> ';
+        return apply_filters('sl_icon_unliked', '<i class="fa fa-heart-o"></i> ');
     }
 
     /**
@@ -418,7 +422,7 @@ final class PostLike
      */
     public function get_like_count($like_count, $post_id)
     {
-        $like_text = __( 'Like', 'love' );
+        $like_text = __( 'Like', 'like' );
         if (is_numeric( $like_count ) && $like_count > 0) {
             $number = $this->sl_format_count( $like_count );
         } else {
@@ -458,10 +462,11 @@ final class PostLike
      * @param $user
      */
     public function show_user_likes($user)
-    { ?>
+    {
+        ?>
         <table class="form-table">
             <tr>
-                <th><label for="user_likes"><?php _e( 'You Like:', 'love' ); ?></label></th>
+                <th><label for="user_likes"><?php _e( 'You Like:', 'like' ); ?></label></th>
                 <td>
                     <?php
                     $types      = get_post_types( ['public' => true] );
@@ -477,29 +482,28 @@ final class PostLike
                         ]
                     ];
                     $sep        = '';
-                    $like_query = new WP_Query( $args );
+                    $like_query = new \WP_Query( $args );
+
                     if ($like_query->have_posts()) : ?>
                         <p>
-                            <?php while ($like_query->have_posts()) : $like_query->the_post();
-                                echo $sep; ?><a href="<?php the_permalink(); ?>"
-                                                title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-                                <?php
-                                $sep = ' &middot; ';
-                            endwhile;
-                            ?>
+                            <?php while ($like_query->have_posts()) : ?>
+                                <?php $like_query->the_post(); echo $sep; ?>
+                                <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+                                <?php $sep = ' &middot; ';
+                            endwhile; ?>
                         </p>
                     <?php else : ?>
-                        <p><?php _e( 'You do not like anything yet.', 'love' ); ?></p>
-                    <?php
-                    endif;
-                    wp_reset_postdata();
-                    ?>
+                        <p><?php _e( 'You do not like anything yet.', 'like' ); ?></p>
+                    <?php endif; ?>
+
+                    <?php wp_reset_postdata();  ?>
                 </td>
             </tr>
         </table>
-    <?php } // show_user_likes()
+        <?php
+    }
 
-    
 }
 
-return new PostLike(['global' => true]);
+
+return new PostLike();
