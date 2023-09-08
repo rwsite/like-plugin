@@ -1,0 +1,55 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Post like plugin.\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-08 21:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.3.1\n"
+"X-Domain: like"
+
+#. Author of the plugin
+msgid "Aleksey Tikhomirov"
+msgstr ""
+
+#: wp-likes-plugin.php:59 wp-likes-plugin.php:270 wp-likes-plugin.php:423
+msgid "Like"
+msgstr ""
+
+#: wp-likes-plugin.php:77
+msgid "Not permitted"
+msgstr ""
+
+#. Name of the plugin
+msgid "Post like plugin."
+msgstr ""
+
+#: wp-likes-plugin.php:398
+msgid "Stars"
+msgstr ""
+
+#: wp-likes-plugin.php:60 wp-likes-plugin.php:266
+msgid "Unlike"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Wordpress simple post likes plugin. Require font awesome. How to use. Add "
+"shortcode [like] in your theme, before post output."
+msgstr ""
+
+#: wp-likes-plugin.php:494
+msgid "You do not like anything yet."
+msgstr ""
+
+#: wp-likes-plugin.php:467
+msgid "You Like:"
+msgstr ""
