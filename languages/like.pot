@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post like plugin.\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-08 21:57+0000\n"
+"POT-Creation-Date: 2023-09-08 22:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -29,7 +29,7 @@ msgid "Not permitted"
 msgstr ""
 
 #. Name of the plugin
-msgid "Post like plugin."
+msgid "Post likes - WordPress plugin."
 msgstr ""
 
 #: wp-likes-plugin.php:398
@@ -42,8 +42,8 @@ msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Wordpress simple post likes plugin. Require font awesome. How to use. Add "
-"shortcode [like] in your theme, before post output."
+"Wordpress simple plugin for post likes. Require font awesome. How to use. "
+"Add shortcode [like] in your theme, before post output."
 msgstr ""
 
 #: wp-likes-plugin.php:494

@@ -35,6 +35,8 @@ final class PostLike
             return;
         }
 
+        load_plugin_textdomain( 'like', false, dirname(plugin_basename(__FILE__)) . '/languages' );
+
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
         add_shortcode('like', [$this, 'get_post_likes']);
 

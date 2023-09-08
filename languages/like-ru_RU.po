@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Post like plugin.\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-08 21:57+0000\n"
-"PO-Revision-Date: 2023-09-08 22:01+0000\n"
+"PO-Revision-Date: 2023-09-08 22:48+0000\n"
 "Last-Translator: Алексей\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -29,8 +29,8 @@ msgid "Not permitted"
 msgstr "Запрещено"
 
 #. Name of the plugin
-msgid "Post like plugin."
-msgstr "ПЛагин"
+msgid "Post likes - WordPress plugin."
+msgstr "Лайки постов - плагин для WordPress."
 
 #: wp-likes-plugin.php:398
 msgid "Stars"
@@ -42,9 +42,12 @@ msgstr "Не нравится"
 
 #. Description of the plugin
 msgid ""
-"Wordpress simple post likes plugin. Require font awesome. How to use. Add "
-"shortcode [like] in your theme, before post output."
+"Wordpress simple plugin for post likes. Require font awesome. How to use. "
+"Add shortcode [like] in your theme, before post output."
 msgstr ""
+"Простой плагин Wordpress для лайков постов. По-умолчанию нужно подключить "
+"шрифт font-awesome. Как использовать: добавьте шорткод [like] в свою тему "
+"перед публикацией выходных данных."
 
 #: wp-likes-plugin.php:494
 msgid "You do not like anything yet."
