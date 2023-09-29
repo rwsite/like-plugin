@@ -1,7 +1,6 @@
 <?php
 /**
- * Plugin Name: Post likes - WordPress plugin.
- * Plugin URL: https://rwsite.ru
+ * Plugin Name: Likes for posts - WordPress plugin.
  * Description: Wordpress simple plugin for post likes. Require font awesome. How to use. Add shortcode [like] in your theme, before post output.
  * Version: 1.0.0
  * Text Domain: like
@@ -9,9 +8,9 @@
  * Author: Aleksey Tikhomirov
  *
  * Requires at least: 4.6
- * Tested up to: 5.3.1
- * Requires PHP: 7.0+
- * How to use:
+ * Tested up to: 6.3
+ * Requires PHP: 8.0+
+ * How to use: [like]
  */
 
 define( 'LIKE_URL', plugin_dir_url( __FILE__));
