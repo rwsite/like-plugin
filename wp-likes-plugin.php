@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Likes for posts - WordPress plugin.
- * Description: Wordpress simple plugin for post likes. Require font awesome. How to use. Add shortcode [like] in your theme, before post output.
+ * Plugin Name: Post Likes plugin
+ * Description: WordPress simple plugin for post likes. Require font awesome. How to use: Add shortcode <code>[like]</code> in your theme, before post output.
  * Version: 1.0.0
  * Text Domain: like
  * Domain Path: /languages
