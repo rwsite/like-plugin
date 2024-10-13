@@ -1,0 +1,15 @@
+{
+  "name": "rwsite/wp-likes-plugin",
+  "description": "WordPress simple plugin for post likes.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Aleksei Tikhomirov",
+      "email": "alex@rwsite.ru"
+    }
+  ],
+  "require": {
+  }
+}
