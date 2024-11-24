@@ -13,7 +13,7 @@
  * How to use: [like]
  */
 
-define( 'LIKE_URL', plugin_dir_url( __FILE__));
+define( 'LIKE_URL', plugin_dir_url( __FILE__ ) );
 
 final class PostLike
 {
@@ -34,7 +34,9 @@ final class PostLike
             return;
         }
 
-        load_plugin_textdomain( 'like', false, dirname(plugin_basename(__FILE__)) . '/languages' );
+        add_action('init',  fn() =>
+            load_plugin_textdomain( 'like', false, dirname(plugin_basename(__FILE__)) . '/languages' )
+        );
 
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
         add_shortcode('like', [$this, 'get_post_likes']);
@@ -508,10 +510,10 @@ new PostLike();
 /**
  * Get post likes
  *
- * @param int|\WP_Post $post
+ * @param  int|\WP_Post  $post
+ *
  * @return string likes
  */
-function get_post_likes($post = null)
-{
-    return (new PostLike())->get_post_likes($post);
+function get_post_likes( $post = null ) {
+	return ( new PostLike() )->get_post_likes( $post );
 }
