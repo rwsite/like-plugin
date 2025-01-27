@@ -1,4 +1,4 @@
-Wordpress Like Plugin
+likes plugin for wordpress
 ==========================
 
 Output the button by doing the following:
