@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Post like plugin.\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-08 21:57+0000\n"
-"PO-Revision-Date: 2023-09-08 22:48+0000\n"
+"PO-Revision-Date: 2025-01-27 22:52+0000\n"
 "Last-Translator: Алексей\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -20,39 +20,39 @@ msgstr ""
 msgid "Aleksey Tikhomirov"
 msgstr "Алексей Тихомиров"
 
-#: wp-likes-plugin.php:59 wp-likes-plugin.php:270 wp-likes-plugin.php:423
+#: wp-likes-plugin.php:67 wp-likes-plugin.php:280 wp-likes-plugin.php:411
 msgid "Like"
 msgstr "Мне нравится"
 
-#: wp-likes-plugin.php:77
+#: wp-likes-plugin.php:85
 msgid "Not permitted"
 msgstr "Запрещено"
 
 #. Name of the plugin
-msgid "Post likes - WordPress plugin."
-msgstr "Лайки постов - плагин для WordPress."
+msgid "Post Likes plugin"
+msgstr "Плагин «Нравится» для постов и комментариев"
 
-#: wp-likes-plugin.php:398
-msgid "Stars"
-msgstr "Звезды"
-
-#: wp-likes-plugin.php:60 wp-likes-plugin.php:266
+#: wp-likes-plugin.php:68 wp-likes-plugin.php:276
 msgid "Unlike"
 msgstr "Не нравится"
 
 #. Description of the plugin
+#| msgid ""
+#| "Wordpress simple plugin for post likes. Require font awesome. How to use. "
+#| "Add shortcode [like] in your theme, before post output."
 msgid ""
-"Wordpress simple plugin for post likes. Require font awesome. How to use. "
-"Add shortcode [like] in your theme, before post output."
+"WordPress simple plugin for post likes. Require font awesome. How to use: "
+"Add shortcode <code>[like]</code> in your theme, before post output."
 msgstr ""
-"Простой плагин Wordpress для лайков постов. По-умолчанию нужно подключить "
-"шрифт font-awesome. Как использовать: добавьте шорткод [like] в свою тему "
-"перед публикацией выходных данных."
+"Простой плагин WordPress для лайков постов. Требует шрифт awesome или simple "
+"line icons. Как использовать: Добавьте шорткод <code>[like]</code> в свою "
+"тему перед выводом поста."
 
-#: wp-likes-plugin.php:494
+#: wp-likes-plugin.php:477
 msgid "You do not like anything yet."
 msgstr "Вам пока ничего не понравилось"
 
-#: wp-likes-plugin.php:467
-msgid "You Like:"
-msgstr "Ваши лайки:"
+#: wp-likes-plugin.php:451
+#| msgid "You Like:"
+msgid "You Likes:"
+msgstr "Вы лайкнули:"
